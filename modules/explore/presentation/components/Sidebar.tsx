@@ -22,7 +22,6 @@ const NAV_ITEMS = [
   { name: 'Home', href: '/', icon: Home }, // New Home Link
   { name: 'Posts', href: '/explore', icon: LayoutDashboard },
   { name: 'Engagements', href: '/explore/engagements', icon: Briefcase },
-  { name: 'Projects', href: '/explore/projects', icon: FolderKanban },
   // 👇 NEW FEATURE LINK
   { name: 'Job Match AI', href: '/explore/job-match', icon: Sparkles }, 
   { name: 'About', href: '/explore/about', icon: User },

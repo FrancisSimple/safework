@@ -2,109 +2,131 @@ export interface Activity {
   id: string;
   date: string;
   note: string;
-  type?: 'Win' | 'Challenge' | 'Routine' | 'Unprocessed'; // Optional type
+  type?: 'Win' | 'Challenge' | 'Routine' | 'Unprocessed';
+  status: 'pending' | 'done';
 }
 
 export interface Engagement {
   id: string;
+  // 👇 THIS FIELD IS CRITICAL. IT MUST BE 'Project' OR 'Engagement'
+  category: 'Project' | 'Engagement'; 
   role: string;
   organization: string;
   period: string;
-  type: 'Work' | 'Education' | 'Volunteering' | 'Leadership';
+  type: 'Work' | 'Education' | 'Volunteering' | 'Leadership' | 'Startup';
   status: 'Active' | 'Completed';
   description: string;
   logoInitial: string;
   colorClass: string;
   images?: string[];
   links?: { label: string; url: string }[];
-  // 👇 NEW FIELDS
   activities: Activity[]; 
   finalSummary?: string; 
-  cvBullets?: string[]; // 👈 NEW: Array of resume-ready bullet points
+  cvBullets?: string[]; 
 }
 
 export const ENGAGEMENTS_MOCK: Engagement[] = [
+  // --- 1. ACTIVE ITEMS ---
   {
     id: '1',
+    category: 'Engagement', // 👈 Marked as Engagement
     role: 'Co-Founder & Lead Developer',
     organization: 'BinByte Technologies',
     period: 'Dec 2025 - Present',
-    type: 'Work',
+    type: 'Startup',
     status: 'Active',
-    description: 'Leading a team of developers to build software solutions. Established the company alongside other students from KNUST and Legon to provide tech training and project development.',
+    description: 'Leading a team of developers to build scalable software solutions.',
     logoInitial: 'B',
     colorClass: 'bg-blue-600',
-    images: [
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop", 
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
-    ],
-    links: [
-      { label: 'Visit Website', url: 'https://binbyte.dev' },
-      { label: 'LinkedIn', url: '#' }
-    ],
-    // 👇 PRE-FILLED ACTIVITY EXAMPLES
+    images: ["https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"],
+    links: [{ label: 'Website', url: 'https://binbyte.dev' }],
     activities: [
-      { id: 'a1', date: '2026-02-01', note: 'Successfully deployed the new client dashboard using Docker.', type: 'Win' },
-      { id: 'a2', date: '2026-01-28', note: 'Had a difficult meeting regarding timeline delays.', type: 'Challenge' }
+      { id: 'a1', date: '2026-02-01', note: 'Deployed dashboard v2.', type: 'Win', status: 'done' }
     ]
   },
   {
     id: '2',
+    category: 'Project', // 👈 Marked as Project
+    role: 'Animgrow',
+    organization: 'AgriTech Venture',
+    period: 'Jan 2026 - Present',
+    type: 'Startup',
+    status: 'Active',
+    description: 'A Livestock-as-a-Service platform for remote animal rearing investments.',
+    logoInitial: 'A',
+    colorClass: 'bg-emerald-600',
+    images: ["https://images.unsplash.com/photo-1484557985045-6f550bfd3962?q=80&w=2070&auto=format&fit=crop"],
+    activities: [
+      { id: 'b1', date: '2026-01-16', note: 'Submitted funding application.', type: 'Routine', status: 'done' }
+    ]
+  },
+  {
+    id: '3',
+    category: 'Project', // 👈 Marked as Project
+    role: 'Kura',
+    organization: 'Personal Project',
+    period: 'Jan 2026 - Present',
+    type: 'Work',
+    status: 'Active',
+    description: 'Secure mobile electronic voting system built with Flutter.',
+    logoInitial: 'K',
+    colorClass: 'bg-indigo-600',
+    activities: [
+      { id: 'k1', date: '2026-01-04', note: 'Finalized architecture.', type: 'Routine', status: 'done' }
+    ]
+  },
+  {
+    id: '4',
+    category: 'Engagement', // 👈 Marked as Engagement
     role: 'Resident Assistant',
     organization: 'Ashesi University',
     period: 'Sept 2025 - May 2026',
     type: 'Leadership',
     status: 'Active',
-    description: 'Selected for the Student Life and Excellence (SLE) program. Responsible for fostering a supportive residential community and mentoring younger students.',
-    logoInitial: 'A',
-    colorClass: 'bg-red-800',
+    description: 'Mentoring freshmen and managing hall activities.',
+    logoInitial: 'R',
+    colorClass: 'bg-red-700',
     activities: []
   },
+
+  // --- 2. ARCHIVED ITEMS ---
   {
-    id: '3',
-    role: 'Founder',
-    organization: 'Animgrow',
-    period: 'Jan 2026 - Present',
+    id: '5',
+    category: 'Project', // 👈 Marked as Project
+    role: 'Poctor',
+    organization: 'Health AI Concept',
+    period: 'Dec 2025',
     type: 'Work',
-    status: 'Active',
-    description: 'Developing a "Livestock-as-a-Service" platform. Leveraging 10+ years of personal experience in rearing goats and sheep to build a tech-enabled agricultural solution.',
-    logoInitial: 'L',
-    colorClass: 'bg-green-600',
+    status: 'Completed',
+    description: 'AI-powered Pocket Doctor for preliminary diagnosis.',
+    logoInitial: 'P',
+    colorClass: 'bg-teal-500',
     activities: []
   },
   {
-    id: '4',
-    role: 'Senior Computer Engineering Student',
-    organization: 'Ashesi University',
-    period: '2022 - 2026',
+    id: '6',
+    category: 'Project', // 👈 Marked as Project
+    role: 'Movie Recommender',
+    organization: 'Data Science Course',
+    period: 'Dec 2025',
     type: 'Education',
-    status: 'Active',
-    description: 'Major in Computer Engineering. Focusing on Embedded Systems, Machine Learning, and Software Engineering principles.',
-    logoInitial: 'U',
-    colorClass: 'bg-slate-700',
+    status: 'Completed',
+    description: 'Collaborative filtering recommendation engine.',
+    logoInitial: 'M',
+    colorClass: 'bg-violet-600',
     activities: []
   },
-  // 👇 NEW COMPLETED EXAMPLE (For testing the CV View)
   {
-    id: '99',
+    id: '7',
+    category: 'Engagement', // 👈 Marked as Engagement
     role: 'Junior Firmware Intern',
     organization: 'AutoSense Ghana',
     period: 'Jun 2024 - Aug 2024',
     type: 'Work',
     status: 'Completed',
-    description: 'Summer internship focusing on IoT sensor calibration and data logging systems.',
+    description: 'IoT sensor calibration and STM32 programming.',
     logoInitial: 'A',
-    colorClass: 'bg-indigo-600',
-    activities: [
-      { id: '1', date: '2024-08-20', note: 'Final presentation to the engineering lead.', type: 'Win' },
-      { id: '2', date: '2024-07-15', note: 'Fixed the I2C timing issue on the sensor board.', type: 'Win' },
-      { id: '3', date: '2024-06-10', note: 'Struggled with legacy codebase documentation.', type: 'Challenge' }
-    ],
-    finalSummary: "During this internship, Francis transitioned from academic theory to practical firmware debugging. He took ownership of the sensor calibration module, reducing data drift by 15%. His ability to navigate legacy codebases and document his findings was highlighted as a key contribution.",
-    cvBullets: [
-      "Engineered a C++ calibration routine for IoT sensors, improving data accuracy by 15% across 50+ deployed units.",
-      "Resolved critical I2C communication latency issues by optimizing interrupt handling in the firmware layer.",
-      "Refactored legacy codebase and produced 20+ pages of technical documentation, reducing onboarding time for future interns."
-    ]
+    colorClass: 'bg-orange-600',
+    activities: []
   }
 ];
